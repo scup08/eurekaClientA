@@ -3,10 +3,16 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 server:
-  port: 9001
+  port: 9003
 spring:
   application:
     name: eurekaClientA
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.26.128:3306/account_db?useSSL=false
+    #url: jdbc:mysql://192.168.121.5:3306/account_db?useSSL=false
+    username: root
+    password: root
 rocketmq:
   producer:
     # 发送同一类消息的设置为同一个group，保证唯一,默认不需要设置，rocketmq会使用ip@pid(pid代表jvm名字)作为唯一标示

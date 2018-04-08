@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lzh.common.model.dto.response.ObjectCollectionResponse;
+import com.lzh.common.model.entity.account.TAccountUser;
 import com.lzh.eurekaClientA.feignService.TestBService;
 
 @RestController
@@ -17,8 +19,10 @@ public class TestA {
 	@RequestMapping(value="/showName")
 	public String showName(String name){
 		
-		String tr = testBService.getBName(" ddddd "+name);
 		
-		return " mynameis ------------------"+ name +" ++++++++++ " + tr;
+//		Map creds = new ObjectMapper().readValue("",  Map.class);
+		ObjectCollectionResponse<TAccountUser> tr = testBService.getBName();
+//		return "";
+		return " mynameis ------------------"+ tr.toString();
 	}
 }
