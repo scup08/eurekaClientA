@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients
+
 public class EurekaClientAApplication {
 
     public static void main(String[] args) {
