@@ -14,11 +14,10 @@ import com.lzh.eurekaClientA.feignService.TestBService;
 import ch.qos.logback.classic.Logger;
 
 @RestController
-@RequestMapping(value="/testa")
-@RefreshScope
-public class TestA {
+@RequestMapping(value="/testb")
+public class TestB {
 	
-	private static Logger logger = (Logger) LoggerFactory.getLogger(TestA.class);
+	private static Logger logger = (Logger) LoggerFactory.getLogger(TestB.class);
 	
 	@Autowired
 	private TestBService testBService;
@@ -26,18 +25,8 @@ public class TestA {
 	@Value("${test.str.name}")
 	private String str1;
 	
-	@RequestMapping(value="/showName")
-	public String showName(String name){
-		
-		
-//		Map creds = new ObjectMapper().readValue("",  Map.class);
-		ObjectCollectionResponse<TAccountUser> tr = testBService.getBName();
-//		return "";
-		return " mynameis ------------------"+ tr.toString();
-	}
-	
 	@RequestMapping(value="/showtest")
 	public void showName1(){
-		logger.info("str1++++++++"+str1);
+		logger.info("/testb+++++++++++++"+str1);
 	}
 }
