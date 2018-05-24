@@ -1,14 +1,18 @@
 package com.lzh.eurekaClientA;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
 
+import com.lzh.common.annotation.MyBatisRepository;
+
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients
+@MapperScan(basePackages = "com.lzh.eurekaClientA.persistence", annotationClass = MyBatisRepository.class)
 public class EurekaClientAApplication {
 
     public static void main(String[] args) {
