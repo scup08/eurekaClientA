@@ -2,6 +2,7 @@ package com.lzh.eurekaClientA.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lzh.eurekaClientA.model.entity.TTestUser;
 import com.lzh.eurekaClientA.persistence.TTestUserMapper;
@@ -15,6 +16,7 @@ public class TestServiceImpl implements ITestService {
 	private TTestUserMapper testUserMapper;
 	
 	@Override
+	@Transactional
 	public int addTestInfoA() {
 		TTestUser testUser = new TTestUser();
 		testUser.setMobile("AAAA");
@@ -23,6 +25,7 @@ public class TestServiceImpl implements ITestService {
 	}
 
 	@Override
+	@Transactional
 	public int addTestInfoB() {
 		TTestUser testUser = new TTestUser();
 		testUser.setMobile("BBBB");
@@ -31,6 +34,7 @@ public class TestServiceImpl implements ITestService {
 	}
 
 	@Override
+	@Transactional
 	public int addTestInfoC() {
 		TTestUser testUser = new TTestUser();
 		testUser.setMobile("CCCC");

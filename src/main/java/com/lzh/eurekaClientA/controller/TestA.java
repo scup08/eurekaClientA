@@ -20,11 +20,9 @@ public class TestA {
 	
 	private static Logger logger = (Logger) LoggerFactory.getLogger(TestA.class);
 	
-	@Autowired
+//	@Autowired
 	private TestBService testBService;
 	
-	@Value("${test.str.name}")
-	private String str1;
 	
 	@RequestMapping(value="/showName")
 	public String showName(String name){
@@ -38,6 +36,6 @@ public class TestA {
 	
 	@RequestMapping(value="/showtest")
 	public void showName1(){
-		logger.info("str1++++++++"+str1);
+		logger.info("str1++++++++");
 	}
 }

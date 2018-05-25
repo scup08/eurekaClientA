@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lzh.eurekaClientA.service.ITestService;
+import com.lzh.eurekaClientA.service.ITransationService;
 
 import ch.qos.logback.classic.Logger;
 
@@ -17,15 +18,12 @@ public class TestTransaction {
 	private static Logger logger = (Logger) LoggerFactory.getLogger(TestTransaction.class);
 	
 	@Autowired
-	private ITestService testService;
+	private ITransationService transationService;
 	
 	
 	@RequestMapping(value="/addTestInfo")
 	public void addTestInfo(){
 		
-		
-		testService.addTestInfoA();
-		testService.addTestInfoB();
-		testService.addTestInfoC();
+		transationService.testTransation();
 	}
 }

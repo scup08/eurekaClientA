@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lzh.eurekaClientA.generator.TTestUserMapper">
-  <resultMap id="BaseResultMap" type="com.lzh.eurekaClientA.generator.TTestUser">
+<mapper namespace="com.lzh.eurekaClientA.persistence.TTestUserMapper">
+  <resultMap id="BaseResultMap" type="com.lzh.eurekaClientA.model.entity.TTestUser">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -26,9 +26,9 @@
     delete from t_test_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.lzh.eurekaClientA.generator.TTestUser">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
+  <insert id="insert" parameterType="TTestUser">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT @@IDENTITY
     </selectKey>
     insert into t_test_user (id, create_time, update_time, 
       delete_time, delete_flag, mobile, 
@@ -39,7 +39,7 @@
       #{loginPwd,jdbcType=VARCHAR}, #{pwdSalt,jdbcType=VARCHAR}, #{balance,jdbcType=BIGINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.lzh.eurekaClientA.generator.TTestUser">
+  <insert id="insertSelective" parameterType="TTestUser">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -99,7 +99,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lzh.eurekaClientA.generator.TTestUser">
+  <update id="updateByPrimaryKeySelective" parameterType="TTestUser">
     update t_test_user
     <set>
       <if test="createTime != null">
@@ -129,7 +129,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lzh.eurekaClientA.generator.TTestUser">
+  <update id="updateByPrimaryKey" parameterType="TTestUser">
     update t_test_user
     set create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
