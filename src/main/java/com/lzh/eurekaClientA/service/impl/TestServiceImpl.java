@@ -2,6 +2,7 @@ package com.lzh.eurekaClientA.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lzh.eurekaClientA.model.entity.TTestUser;
@@ -30,7 +31,8 @@ public class TestServiceImpl implements ITestService {
 		TTestUser testUser = new TTestUser();
 		testUser.setMobile("BBBB");
 		int rs = testUserMapper.insert(testUser);
-		return rs;
+		throw new RuntimeException("故意的");
+//		return rs;
 	}
 
 	@Override

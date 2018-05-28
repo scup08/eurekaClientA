@@ -19,7 +19,7 @@ public class TestB {
 	
 	private static Logger logger = (Logger) LoggerFactory.getLogger(TestB.class);
 	
-//	@Autowired
+	@Autowired
 	private TestBService testBService;
 	
 	@RequestMapping(value="/showtest")

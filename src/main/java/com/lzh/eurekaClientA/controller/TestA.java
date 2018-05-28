@@ -20,7 +20,7 @@ public class TestA {
 	
 	private static Logger logger = (Logger) LoggerFactory.getLogger(TestA.class);
 	
-//	@Autowired
+	@Autowired
 	private TestBService testBService;
 	
 	

@@ -16,13 +16,25 @@ public class TransationServiceImpl implements ITransationService {
 	@Override
 	@Transactional
 	public void testTransation() {
-		System.out.println("1111111111111");
-		int a = testService.addTestInfoA();
-		System.out.println("222222222222222---" +a );
-		a = testService.addTestInfoB();
-		System.out.println("33333333333333---" +a );
-		a = testService.addTestInfoC();
-		System.out.println("444444444444---" +a );
+		
+		
+		
+		try{
+			System.out.println("1111111111111");
+			int a = testService.addTestInfoA();
+			System.out.println("222222222222222---" +a );
+			a = testService.addTestInfoB();
+			System.out.println("33333333333333---" +a );
+			
+		}catch(Exception e){
+			int b = testService.addTestInfoC();
+			System.out.println("444444444444---" +b );
+			System.out.println("异常了");
+		}
+		
+		
+		
+		System.out.println("5555555555555");
 	}
 
 }

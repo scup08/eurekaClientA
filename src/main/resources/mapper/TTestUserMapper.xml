@@ -27,9 +27,6 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="TTestUser">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT @@IDENTITY
-    </selectKey>
     insert into t_test_user (id, create_time, update_time, 
       delete_time, delete_flag, mobile, 
       login_pwd, pwd_salt, balance
