@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lzh.eurekaClientA.feignService.AccountTestService;
+import com.lzh.eurekaClientA.feignService.AuthentiationTestService;
+import com.lzh.eurekaClientA.feignService.ZuulTestService;
 import com.lzh.eurekaClientA.service.ITestService;
 import com.lzh.eurekaClientA.service.ITransationService;
 
@@ -12,6 +15,15 @@ public class TransationServiceImpl implements ITransationService {
 
 	@Autowired
 	private ITestService testService;
+	
+	@Autowired
+	private AccountTestService accountTestService;
+	
+	@Autowired
+	private AuthentiationTestService authentiationTestService;
+	
+	@Autowired
+	private ZuulTestService zuulTestService;
 	
 	@Override
 	@Transactional
@@ -35,6 +47,19 @@ public class TransationServiceImpl implements ITransationService {
 		
 		
 		System.out.println("5555555555555");
+	}
+
+	@Override
+	@Transactional
+	public void disTransation() {
+
+		System.out.println("1111111111111");
+		accountTestService.testInfo("1234");
+		System.out.println("2222222222222");
+		authentiationTestService.testInfo("4321");
+		System.out.println("333333333333");
+		zuulTestService.testInfo("abcd");
+		System.out.println("4444444444444");
 	}
 
 }

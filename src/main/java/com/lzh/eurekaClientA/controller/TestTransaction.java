@@ -21,9 +21,20 @@ public class TestTransaction {
 	private ITransationService transationService;
 	
 	
+	
+	
 	@RequestMapping(value="/addTestInfo")
 	public void addTestInfo(){
 		
 		transationService.testTransation();
+	}
+	
+	/**
+	 * 分布式事务测试
+	 */
+	@RequestMapping(value="/disTransation")
+	public void disTransation(){
+		
+		transationService.disTransation();
 	}
 }
