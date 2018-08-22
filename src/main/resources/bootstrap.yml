@@ -1,7 +1,7 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://47.93.193.177:8761/eureka/
 spring:
   application:
     name: eurekaClientA
@@ -12,3 +12,8 @@ spring:
         enabled: true
         service-id: configservice
   
+fdfs:
+  soTimeout: 1500
+  connectTimeout: 600
+  trackerList:            #TrackerList参数,支持多个
+    - 47.93.193.177:22122

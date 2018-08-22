@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzh.eurekaClientA.persistence.TTestAudioMapper">
+  <resultMap id="BaseResultMap" type="TTestAudio">
+    <id column="uuid" jdbcType="BIGINT" property="uuid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="size" jdbcType="INTEGER" property="size" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="extension_name" jdbcType="VARCHAR" property="extensionName" />
+    <result column="duration" jdbcType="INTEGER" property="duration" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, `name`, url, `size`, user_id, extension_name, duration
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_test_audio
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_test_audio
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="TTestAudio">
+    
+    insert into t_test_audio (uuid, `name`, url, 
+      `size`, user_id, extension_name, 
+      duration)
+    values (#{uuid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{size,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{extensionName,jdbcType=VARCHAR}, 
+      #{duration,jdbcType=INTEGER})
+      <selectKey keyProperty="uuid" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+  <insert id="insertSelective" parameterType="TTestAudio">
+    <selectKey keyProperty="uuid" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_test_audio
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      uuid,
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="size != null">
+        `size`,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="extensionName != null">
+        extension_name,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{uuid,jdbcType=BIGINT},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="extensionName != null">
+        #{extensionName,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="TTestAudio">
+    update t_test_audio
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        `size` = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="extensionName != null">
+        extension_name = #{extensionName,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        duration = #{duration,jdbcType=INTEGER},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="TTestAudio">
+    update t_test_audio
+    set `name` = #{name,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      `size` = #{size,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
+      extension_name = #{extensionName,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=INTEGER}
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </update>
+  <select id="findAudioListByMap" parameterType="java.util.Map" resultType="TTestAudio">
+  	SELECT 
+	tta.uuid, tta.name, tta.url, tta.size, tta.user_id, tta.extension_name, tta.duration
+  	FROM ${tableName} AS tar
+	LEFT JOIN t_audio_play_history AS taph ON tar.audio_id = taph.audio_id
+	LEFT JOIN t_test_audio tta ON tta.uuid = tar.audio_id
+	WHERE taph.audio_id IS NULL
+  </select>
+  
+  
+</mapper>

@@ -36,18 +36,30 @@
 		    <artifactId>mybatis-spring-boot-starter</artifactId>
 		    <version>${mybatis.version}</version>
 		</dependency>
+		<!-- 
+		<dependency>
+		    <groupId>com.github.tobato</groupId>
+		    <artifactId>fastdfs-client</artifactId>
+		    <version>1.26.1-RELEASE</version>
+		</dependency>
+		 -->
+		<dependency>
+    <groupId>org.csource</groupId>
+    <artifactId>fastdfs-client-java</artifactId>
+    <version>1.27-SNAPSHOT</version>
+</dependency>
 		
 	</dependencies>
 
 	<build>
 		<finalName>eurekaClientA</finalName>
 		<plugins>
-			<!-- 
+			<!--  -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			 -->
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -68,7 +80,8 @@
                     <overwrite>true</overwrite>
                 </configuration>  
 			</plugin>
-			 <!--  -->
+			<!-- 最小打包 -->
+			 <!-- 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -82,7 +95,7 @@
 					</archive>
 				</configuration>
 			</plugin>
-			
+			 -->
 		</plugins>
 	</build>
 </project>

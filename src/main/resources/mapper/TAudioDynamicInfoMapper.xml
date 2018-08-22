@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzh.eurekaClientA.persistence.TAudioDynamicInfoMapper">
+  <resultMap id="BaseResultMap" type="TAudioDynamicInfo">
+    <id column="uuid" jdbcType="BIGINT" property="uuid" />
+    <id column="audio_id" jdbcType="BIGINT" property="audioIid" />
+    <result column="push_no" jdbcType="INTEGER" property="pushNo" />
+    <result column="push_level" jdbcType="INTEGER" property="pushLevel" />
+    <result column="push_flag" jdbcType="CHAR" property="pushFlag" />
+    <result column="play_no" jdbcType="INTEGER" property="playNo" />
+    <result column="appreciate_no" jdbcType="INTEGER" property="appreciateNo" />
+    <result column="appreciate_rate" jdbcType="DOUBLE" property="appreciateRate" />
+    <result column="comment_no" jdbcType="INTEGER" property="commentNo" />
+    <result column="comment_rate" jdbcType="DOUBLE" property="commentRate" />
+    <result column="forward_no" jdbcType="INTEGER" property="forwardNo" />
+    <result column="forward_rate" jdbcType="DOUBLE" property="forwardRate" />
+    <result column="complete_no" jdbcType="INTEGER" property="completeNo" />
+    <result column="complete_rate" jdbcType="DOUBLE" property="completeRate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, push_no, push_level, push_flag, play_no, appreciate_no, appreciate_rate, comment_no, 
+    comment_rate, forward_no, forward_rate, complete_no, complete_rate,audio_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_audio_dynamic_info
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_audio_dynamic_info
+    where audio_id = #{audioId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="TAudioDynamicInfo">
+    <selectKey keyProperty="uuid" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_audio_dynamic_info (uuid, push_no, push_level, 
+      push_flag, play_no, appreciate_no, 
+      appreciate_rate, comment_no, comment_rate, 
+      forward_no, forward_rate, complete_no, 
+      complete_rate,audio_id)
+    values (#{uuid,jdbcType=BIGINT}, #{pushNo,jdbcType=INTEGER}, #{pushLevel,jdbcType=INTEGER}, 
+      #{pushFlag,jdbcType=CHAR}, #{playNo,jdbcType=INTEGER}, #{appreciateNo,jdbcType=INTEGER}, 
+      #{appreciateRate,jdbcType=DOUBLE}, #{commentNo,jdbcType=INTEGER}, #{commentRate,jdbcType=DOUBLE}, 
+      #{forwardNo,jdbcType=INTEGER}, #{forwardRate,jdbcType=DOUBLE}, #{completeNo,jdbcType=INTEGER}, 
+      #{completeRate,jdbcType=DOUBLE},#{audioId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="TAudioDynamicInfo">
+    <selectKey keyProperty="uuid" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_audio_dynamic_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      uuid,
+      <if test="pushNo != null">
+        push_no,
+      </if>
+      <if test="pushLevel != null">
+        push_level,
+      </if>
+      <if test="pushFlag != null">
+        push_flag,
+      </if>
+      <if test="playNo != null">
+        play_no,
+      </if>
+      <if test="appreciateNo != null">
+        appreciate_no,
+      </if>
+      <if test="appreciateRate != null">
+        appreciate_rate,
+      </if>
+      <if test="commentNo != null">
+        comment_no,
+      </if>
+      <if test="commentRate != null">
+        comment_rate,
+      </if>
+      <if test="forwardNo != null">
+        forward_no,
+      </if>
+      <if test="forwardRate != null">
+        forward_rate,
+      </if>
+      <if test="completeNo != null">
+        complete_no,
+      </if>
+      <if test="completeRate != null">
+        complete_rate,
+      </if>
+      <if test="audioId != null">
+        audio_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{uuid,jdbcType=BIGINT},
+      <if test="pushNo != null">
+        #{pushNo,jdbcType=INTEGER},
+      </if>
+      <if test="pushLevel != null">
+        #{pushLevel,jdbcType=INTEGER},
+      </if>
+      <if test="pushFlag != null">
+        #{pushFlag,jdbcType=CHAR},
+      </if>
+      <if test="playNo != null">
+        #{playNo,jdbcType=INTEGER},
+      </if>
+      <if test="appreciateNo != null">
+        #{appreciateNo,jdbcType=INTEGER},
+      </if>
+      <if test="appreciateRate != null">
+        #{appreciateRate,jdbcType=DOUBLE},
+      </if>
+      <if test="commentNo != null">
+        #{commentNo,jdbcType=INTEGER},
+      </if>
+      <if test="commentRate != null">
+        #{commentRate,jdbcType=DOUBLE},
+      </if>
+      <if test="forwardNo != null">
+        #{forwardNo,jdbcType=INTEGER},
+      </if>
+      <if test="forwardRate != null">
+        #{forwardRate,jdbcType=DOUBLE},
+      </if>
+      <if test="completeNo != null">
+        #{completeNo,jdbcType=INTEGER},
+      </if>
+      <if test="completeRate != null">
+        #{completeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="audioId != null">
+        #{audioId,jdbcType=BIGINT},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="TAudioDynamicInfo">
+    update t_audio_dynamic_info
+    <set>
+      <if test="pushNo != null">
+        push_no = #{pushNo,jdbcType=INTEGER},
+      </if>
+      <if test="pushLevel != null">
+        push_level = #{pushLevel,jdbcType=INTEGER},
+      </if>
+      <if test="pushFlag != null">
+        push_flag = #{pushFlag,jdbcType=CHAR},
+      </if>
+      <if test="playNo != null">
+        play_no = #{playNo,jdbcType=INTEGER},
+      </if>
+      <if test="appreciateNo != null">
+        appreciate_no = #{appreciateNo,jdbcType=INTEGER},
+      </if>
+      <if test="appreciateRate != null">
+        appreciate_rate = #{appreciateRate,jdbcType=DOUBLE},
+      </if>
+      <if test="commentNo != null">
+        comment_no = #{commentNo,jdbcType=INTEGER},
+      </if>
+      <if test="commentRate != null">
+        comment_rate = #{commentRate,jdbcType=DOUBLE},
+      </if>
+      <if test="forwardNo != null">
+        forward_no = #{forwardNo,jdbcType=INTEGER},
+      </if>
+      <if test="forwardRate != null">
+        forward_rate = #{forwardRate,jdbcType=DOUBLE},
+      </if>
+      <if test="completeNo != null">
+        complete_no = #{completeNo,jdbcType=INTEGER},
+      </if>
+      <if test="completeRate != null">
+        complete_rate = #{completeRate,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where audio_id = #{audioId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="TAudioDynamicInfo">
+    update t_audio_dynamic_info
+    set push_no = #{pushNo,jdbcType=INTEGER},
+      push_level = #{pushLevel,jdbcType=INTEGER},
+      push_flag = #{pushFlag,jdbcType=CHAR},
+      play_no = #{playNo,jdbcType=INTEGER},
+      appreciate_no = #{appreciateNo,jdbcType=INTEGER},
+      appreciate_rate = #{appreciateRate,jdbcType=DOUBLE},
+      comment_no = #{commentNo,jdbcType=INTEGER},
+      comment_rate = #{commentRate,jdbcType=DOUBLE},
+      forward_no = #{forwardNo,jdbcType=INTEGER},
+      forward_rate = #{forwardRate,jdbcType=DOUBLE},
+      complete_no = #{completeNo,jdbcType=INTEGER},
+      complete_rate = #{completeRate,jdbcType=DOUBLE},
+      audio_id = #{audioId,jdbcType=BIGINT}
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </update>
+  <select id="findDynamicInfo" parameterType="java.util.Map" resultType="TAudioDynamicInfo">
+  	select 
+    tadi.uuid, tadi.push_no, tadi.push_level, tadi.push_flag, tadi.play_no, tadi.appreciate_no, tadi.appreciate_rate, tadi.comment_no, 
+    tadi.comment_rate, tadi.forward_no, tadi.forward_rate, tadi.complete_no, tadi.complete_rate,tadi.audio_id
+    from t_audio_dynamic_info tadi
+    where 1=1 
+    <if test="audioId != null">
+        and tadi.audio_id = #{audioId,jdbcType=BIGINT}
+    </if>
+    
+  </select>
+</mapper>

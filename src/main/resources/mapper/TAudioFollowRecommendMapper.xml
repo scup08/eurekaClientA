@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzh.eurekaClientA.persistence.TAudioFollowRecommendMapper">
+  <resultMap id="BaseResultMap" type="TAudioFollowRecommend">
+    <id column="uuid" jdbcType="BIGINT" property="uuid" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="audio_id" jdbcType="BIGINT" property="audioId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, user_id, audio_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_audio_follow_recommend
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_audio_follow_recommend
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="TAudioFollowRecommend">
+    
+    insert into t_audio_follow_recommend (uuid, user_id, audio_id
+      )
+    values (#{uuid,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{audioId,jdbcType=BIGINT}
+      )
+      <selectKey keyProperty="uuid" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+  <insert id="insertSelective" parameterType="TAudioFollowRecommend">
+    <selectKey keyProperty="uuid" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_audio_follow_recommend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      uuid,
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="audioId != null">
+        audio_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{uuid,jdbcType=BIGINT},
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="audioId != null">
+        #{audioId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="TAudioFollowRecommend">
+    update t_audio_follow_recommend
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="audioId != null">
+        audio_id = #{audioId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="TAudioFollowRecommend">
+    update t_audio_follow_recommend
+    set user_id = #{userId,jdbcType=BIGINT},
+      audio_id = #{audioId,jdbcType=BIGINT}
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </update>
+  <select id="findAudioRandom" parameterType="java.util.Map" resultType="TTestAudio">
+  	SELECT 
+  	tta.uuid, tta.name, tta.url, tta.size, tta.user_id, tta.extension_name, tta.duration
+  	FROM ${tableName} AS tar
+  	LEFT JOIN t_test_audio AS tta on tar.audio_id = tta.uuid
+	LEFT JOIN t_audio_play_history AS taph ON tar.audio_id = taph.audio_id
+	WHERE taph.audio_id IS NULL 
+	<if test="randomNo != null">
+        and tar.random_no = #{randomNo,jdbcType=INTEGER} 
+    </if>
+    <if test="minAudioId != null">
+        and tar.audio_id >= #{minAudioId,jdbcType=BIGINT}
+    </if>
+    <if test="maxAudioId != null">
+        and #{randomNo,jdbcType=BIGINT} >= tar.audio_id  
+    </if>
+	ORDER BY tar.audio_id
+	<if test="randomOrder != null">
+        ${randomOrder}
+    </if>
+	LIMIT	1
+  </select>
+  <select id="queryAvailableNo" parameterType="java.util.Map" resultType="AudioAvailableDto">
+	SELECT COUNT(0) coun,tar.random_no ,MAX(tar.audio_id) max_id,MIN(tar.audio_id) min_id
+  	FROM ${tableName} AS tar
+	LEFT JOIN t_audio_play_history AS taph ON tar.audio_id = taph.audio_id
+	WHERE taph.audio_id IS NULL
+	GROUP BY tar.random_no
+	ORDER BY coun
+	DESC
+  </select>
+  
+  <insert id="putAudioInPool" parameterType="java.util.Map">
+    insert into ${tableName}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="audioId != null">
+        audio_id,
+      </if>
+      <if test="randomNo != null">
+        random_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="audioId != null">
+        #{audioId,jdbcType=BIGINT},
+      </if>
+      <if test="randomNo != null">
+        #{randomNo,jdbcType=INTEGER},
+      </if>
+    </trim>
+    <selectKey keyProperty="uuid" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+</mapper>

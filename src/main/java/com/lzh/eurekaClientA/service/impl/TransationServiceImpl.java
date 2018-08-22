@@ -44,8 +44,6 @@ public class TransationServiceImpl implements ITransationService {
 			System.out.println("异常了");
 		}
 		
-		
-		
 		System.out.println("5555555555555");
 	}
 
@@ -58,8 +56,8 @@ public class TransationServiceImpl implements ITransationService {
 		System.out.println("2222222222222");
 		authentiationTestService.testInfo("4321");
 		System.out.println("333333333333");
-		zuulTestService.testInfo("abcd");
-		System.out.println("4444444444444");
+//		zuulTestService.testInfo("abcd");
+//		System.out.println("4444444444444");
 	}
 
 }

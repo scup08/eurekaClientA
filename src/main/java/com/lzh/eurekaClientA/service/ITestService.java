@@ -2,7 +2,7 @@ package com.lzh.eurekaClientA.service;
 
 import com.lzh.common.annotation.MyBatisRepository;
 
-@MyBatisRepository
+
 public interface ITestService {
 
 	/**

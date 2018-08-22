@@ -63,7 +63,7 @@
     </logger>
      -->
 	<!-- DEBUG WARN -->
-	<logger name="com.lzh.eurekaClientA.controller" level="info"/>
+	<logger name="com.lzh.eurekaClientA.persistence" level="debug"/>
 	
     <root level="WARN">
         <!--<appender-ref ref="ASYNC"/>-->

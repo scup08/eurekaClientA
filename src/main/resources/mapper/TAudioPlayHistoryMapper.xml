@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzh.eurekaClientA.persistence.TAudioPlayHistoryMapper">
+  <resultMap id="BaseResultMap" type="TAudioPlayHistory">
+    <id column="uuid" jdbcType="BIGINT" property="uuid" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="audio_id" jdbcType="BIGINT" property="audioId" />
+    <result column="play_time" jdbcType="TIMESTAMP" property="playTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, user_id, audio_id, play_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_audio_play_history
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_audio_play_history
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="TAudioPlayHistory">
+    
+    insert into t_audio_play_history (uuid, user_id, audio_id, 
+      play_time)
+    values (#{uuid,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{audioId,jdbcType=BIGINT}, 
+      #{playTime,jdbcType=TIMESTAMP})
+      <selectKey keyProperty="uuid" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+  <insert id="insertSelective" parameterType="TAudioPlayHistory">
+    <selectKey keyProperty="uuid" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_audio_play_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      uuid,
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="audioId != null">
+        audio_id,
+      </if>
+      <if test="playTime != null">
+        play_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{uuid,jdbcType=BIGINT},
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="audioId != null">
+        #{audioId,jdbcType=BIGINT},
+      </if>
+      <if test="playTime != null">
+        #{playTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="TAudioPlayHistory">
+    update t_audio_play_history
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="audioId != null">
+        audio_id = #{audioId,jdbcType=BIGINT},
+      </if>
+      <if test="playTime != null">
+        play_time = #{playTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="TAudioPlayHistory">
+    update t_audio_play_history
+    set user_id = #{userId,jdbcType=BIGINT},
+      audio_id = #{audioId,jdbcType=BIGINT},
+      play_time = #{playTime,jdbcType=TIMESTAMP}
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </update>
+  <select id="findPlayHistory" parameterType="java.util.Map" resultType="TAudioPlayHistory">
+  	select 
+    taph.uuid, taph.user_id, taph.audio_id, taph.play_time
+    from t_audio_play_history taph
+    where 1=1 
+    and taph.user_id = #{userId,jdbcType=BIGINT}
+    and taph.audio_id = #{audioId,jdbcType=BIGINT}
+  </select>
+</mapper>
